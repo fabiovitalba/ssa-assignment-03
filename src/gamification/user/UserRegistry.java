@@ -1,5 +1,6 @@
 package gamification.user;
 
+// This is like a "Singleton" per thread. Where the scope is the thread.
 public class UserRegistry {
     // This ThreadLocal will only store ONE user per thread
     // This will help us get the user of the current thread.

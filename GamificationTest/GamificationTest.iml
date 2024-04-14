@@ -7,5 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="GamificationFramework" />
+    <orderEntry type="library" name="junit.jupiter.api" level="project" />
   </component>
 </module>

@@ -35,11 +35,15 @@ public class GamificationFacade {
         // Execute Rules before Task execution
         classRules.get(task.getClass()).forEach(rule -> rule.beforeExecution(task));
 
-        Object returned = task.execute();
-        // Execute Rules based on Return Value
-        classRules.get(task.getClass()).forEach(rule -> rule.whenTaskReturns(task, returned));
-
-        return returned;
+        try {
+            Object returned = task.execute();
+            // Execute Rules based on Return Value
+            classRules.get(task.getClass()).forEach(rule -> rule.whenTaskReturns(task, returned));
+            return returned;
+        } catch (FailedExecutionException fee) {
+            classRules.get(task.getClass()).forEach(rule -> rule.whenTaskThrowsException(task,fee));
+            throw fee;
+        }
     }
 
     public void clearRules() {

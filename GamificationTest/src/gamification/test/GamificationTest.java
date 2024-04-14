@@ -1,12 +1,24 @@
 package gamification.test;
 
-import org.junit.jupiter.api.Test;
+import gamification.api.GameRule;
+import gamification.api.GamificationFacade;
+import gamification.rules.RecordPoints;
+import gamification.user.User;
 
-import static org.junit.jupiter.api.Assertions.*;
+import gamification.user.UserRegistry;
+import org.junit.jupiter.api.Test;
 
 public class GamificationTest {
     @Test
-    void test() {
-        fail("Not yet implemented");
+    void basicFrameworkUsage() {
+        // Configure the user
+        User user = new User("Tester");
+        UserRegistry.setCurrentUser(user);
+
+        // Configure the rule
+        GameRule gameRule = new RecordPoints(10);
+        // We assign the Game Rule to DummyTask.class
+        // In the setGameRule class, we specified that we can only assign rules to Task-implementing classes
+        GamificationFacade.getInstance().setGameRule(gameRule, DummyTask.class);
     }
 }

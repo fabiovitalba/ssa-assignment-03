@@ -9,7 +9,7 @@ public class UserRegistry {
     public static void setCurrentUser(User user) {
         currentUser.set(user);
     }
-    public static User getCurrentUser(User user) {
+    public static User getCurrentUser() {
         return currentUser.get();
     }
 }

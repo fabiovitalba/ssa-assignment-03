@@ -15,7 +15,6 @@ public class GamificationFacade {
     }
 
     public void setGameRule(GameRule rule, Class<? extends Task> task) {
-
     }
 
     public Object execute(Task task) throws FailedExecutionException {

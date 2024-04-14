@@ -4,11 +4,12 @@ package gamification.user;
 public class UserRegistry {
     // This ThreadLocal will only store ONE user per thread
     // This will help us get the user of the current thread.
-    private static ThreadLocal<User> currentUser;
+    private static ThreadLocal<User> currentUser = new ThreadLocal<>();
 
     public static void setCurrentUser(User user) {
         currentUser.set(user);
     }
+    
     public static User getCurrentUser() {
         return currentUser.get();
     }

@@ -1,7 +1,9 @@
 package gamification.api;
 
 public class FailedExecutionException extends Exception {
+
     public FailedExecutionException() {
+
     }
 
     public FailedExecutionException(String message) {

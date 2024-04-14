@@ -32,11 +32,17 @@ public class GamificationFacade {
     }
 
     public Object execute(Task task) throws FailedExecutionException {
+        // Execute Rules before Task execution
         classRules.get(task.getClass()).forEach(rule -> rule.beforeExecution(task));
 
         Object returned = task.execute();
+        // Execute Rules based on Return Value
         classRules.get(task.getClass()).forEach(rule -> rule.whenTaskReturns(task, returned));
 
         return returned;
+    }
+
+    public void clearRules() {
+        classRules = new HashMap<>();
     }
 }

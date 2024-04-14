@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class GamificationTest {
     @Test
     public void basicFrameworkUsage() throws FailedExecutionException {
-        /*
         // Configure the user
         User user = new User("Tester");
         UserRegistry.setCurrentUser(user);
@@ -31,7 +30,5 @@ public class GamificationTest {
         // Verify the points
         assertEquals(20, user.getPoints());
         assertEquals(10, user.getLastPointsGot());
-         */
-        assertEquals(4, 2+2);
     }
 }

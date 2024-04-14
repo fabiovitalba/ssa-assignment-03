@@ -24,10 +24,7 @@ hs_err_pid*
 replay_pid*
 
 .DS_Store
-
 .vscode/
-
-.idea/*
-.idea
+/bin/
+.metadata/
 .idea/
-

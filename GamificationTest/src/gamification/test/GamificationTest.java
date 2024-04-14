@@ -3,6 +3,7 @@ package gamification.test;
 import gamification.api.FailedExecutionException;
 import gamification.api.GameRule;
 import gamification.api.GamificationFacade;
+import gamification.rules.AnnoyingPerson;
 import gamification.rules.RecordPoints;
 import gamification.rules.TrueFalseReturn;
 import gamification.user.User;
@@ -12,7 +13,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GamificationTest {
     @AfterEach
@@ -85,5 +87,29 @@ public class GamificationTest {
 
         // Verify the points
         assertEquals(55, user.getPoints());
+    }
+
+    @Test
+    @DisplayName("Assign badge if exception is thrown")
+    public void withException() throws FailedExecutionException {
+        // Configure the user
+        User user = new User("Tester");
+        UserRegistry.setCurrentUser(user);
+
+        // Configure the rule
+        GameRule gameRule = new AnnoyingPerson();
+        GamificationFacade.getInstance().setGameRule(gameRule, DummyTask.class);
+
+        // Execute the task
+        try {
+            GamificationFacade.getInstance().execute(new DummyTask(true));
+            fail();
+        } catch(FailedExecutionException e) {
+        }
+
+
+        // Verify the points
+        assertTrue(user.getBadges().contains("Annoying"));
+        assertEquals("Annoying",UserRegistry.getCurrentUser().getLastBadgeGot());
     }
 }

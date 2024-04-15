@@ -5,6 +5,7 @@ import gamification.api.GameRule;
 import gamification.api.GamificationFacade;
 import gamification.rules.AnnoyingPerson;
 import gamification.rules.RecordPoints;
+import gamification.rules.Roguelike;
 import gamification.rules.TrueFalseReturn;
 import gamification.user.User;
 import gamification.user.UserRegistry;
@@ -109,6 +110,35 @@ public class GamificationTest {
 
         // Verify the points
         assertTrue(user.getBadges().contains("Annoying"));
-        assertEquals("Annoying",UserRegistry.getCurrentUser().getLastBadgeGot());
+        assertEquals("Annoying", UserRegistry.getCurrentUser().getLastBadgeGot());
+    }
+
+    @Test
+    @DisplayName("Loose everything when exception is thrown")
+    public void withExceptionRougelike() throws FailedExecutionException {
+        // Configure the user
+        User user = new User("Tester");
+        UserRegistry.setCurrentUser(user);
+
+        // Configure the rule
+        GameRule gameRule1 = new AnnoyingPerson();
+        GamificationFacade.getInstance().setGameRule(gameRule1, DummyTask.class);
+        GameRule gameRule2 = new TrueFalseReturn(20,-5);
+        GamificationFacade.getInstance().setGameRule(gameRule2, DummyTaskTrueFalse.class);
+        GameRule gameRule3 = new Roguelike();
+        GamificationFacade.getInstance().setGameRule(gameRule3, DummyTask.class);
+
+        // Execute the task
+        try {
+        	GamificationFacade.getInstance().execute(new DummyTask(false));
+            GamificationFacade.getInstance().execute(new DummyTask(true));
+            fail();
+        } catch(FailedExecutionException e) {
+        }
+
+
+        // Verify the points
+        assertEquals(0, user.getBadges().size());
+        assertEquals(0, user.getPoints());
     }
 }

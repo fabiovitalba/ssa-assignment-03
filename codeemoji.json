@@ -1,0 +1,12 @@
+{
+  "project_rules": [
+    {
+      "element": "class",
+      "feature": "implements",
+      "emoji": "26A1",
+      "values": [
+        "gamification.api.Task"
+      ]
+    }
+  ]
+}

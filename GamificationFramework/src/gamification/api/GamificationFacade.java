@@ -23,6 +23,7 @@ public class GamificationFacade {
 
     // ------------- Functionality ------------- //
     private Map<Class<? extends Task>, List<GameRule>> classRules = new HashMap<>();
+    private Map<GameCondition, List<GamificationListener>> gameConditionListeners = new HashMap<>();
 
     public void setGameRule(GameRule rule, Class<? extends Task> taskClass) {
         if (!classRules.containsKey(taskClass)) {
@@ -39,14 +40,40 @@ public class GamificationFacade {
             Object returned = task.execute();
             // Execute Rules based on Return Value
             classRules.get(task.getClass()).forEach(rule -> rule.whenTaskReturns(task, returned));
+            
+            executeListeners();
+            
             return returned;
         } catch (FailedExecutionException fee) {
             classRules.get(task.getClass()).forEach(rule -> rule.whenTaskThrowsException(task,fee));
+            
+            executeListeners();
+            
             throw fee;
         }
+    }
+    
+    private void executeListeners() {
+        gameConditionListeners.keySet().forEach((condition) -> {
+        	if (condition.evaluate())
+        		gameConditionListeners.get(condition).forEach((listener) -> {
+        			listener.execute();
+        		});
+        });
     }
 
     public void clearRules() {
         classRules = new HashMap<>();
+    }
+    
+    public void setCallback(GameCondition condition, GamificationListener listener) {
+    	if (!gameConditionListeners.containsKey(condition)) {
+    		gameConditionListeners.put(condition, new ArrayList<>());
+    	}
+    	gameConditionListeners.get(condition).add(listener);
+    }
+    
+    public void clearCallbacks() {
+    	gameConditionListeners = new HashMap<>();
     }
 }

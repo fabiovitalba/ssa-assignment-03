@@ -120,7 +120,7 @@ public class GamificationTest {
         User user = new User("Tester");
         UserRegistry.setCurrentUser(user);
 
-        // Configure the rule
+        // Configure the rules
         GameRule gameRule1 = new AnnoyingPerson();
         GamificationFacade.getInstance().setGameRule(gameRule1, DummyTask.class);
         GameRule gameRule2 = new TrueFalseReturn(20,-5);
@@ -131,6 +131,7 @@ public class GamificationTest {
         // Execute the task
         try {
         	GamificationFacade.getInstance().execute(new DummyTask(false));
+        	GamificationFacade.getInstance().execute(new DummyTaskTrueFalse(true));
             GamificationFacade.getInstance().execute(new DummyTask(true));
             fail();
         } catch(FailedExecutionException e) {

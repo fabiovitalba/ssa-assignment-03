@@ -1,0 +1,3 @@
+module GamificationHelloWorld {
+	requires GamificationFramework;
+}

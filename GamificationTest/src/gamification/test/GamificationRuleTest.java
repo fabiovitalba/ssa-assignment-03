@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GamificationTest {
+public class GamificationRuleTest {
     @AfterEach
     public void afterEachTest() {
         GamificationFacade.getInstance().clearRules();

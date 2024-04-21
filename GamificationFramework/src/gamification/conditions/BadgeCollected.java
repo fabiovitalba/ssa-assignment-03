@@ -14,4 +14,9 @@ public class BadgeCollected implements GameCondition {
     public boolean evaluate() {
         return UserRegistry.getCurrentUser().getLastBadgeGot().equals(badgeName);
     }
+
+    @Override
+    public boolean persistent() {
+        return false;
+    }
 }

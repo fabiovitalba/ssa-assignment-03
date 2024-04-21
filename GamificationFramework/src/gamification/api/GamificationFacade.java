@@ -54,11 +54,18 @@ public class GamificationFacade {
     }
     
     private void executeListeners() {
-        gameConditionListeners.keySet().forEach((condition) -> {
-        	if (condition.evaluate())
-        		gameConditionListeners.get(condition).forEach((listener) -> {
-        			listener.execute();
-        		});
+        List<GameCondition> conditionsToRemove = new ArrayList<>();
+        gameConditionListeners.keySet().forEach(condition -> {
+        	if (condition.evaluate()) {
+                gameConditionListeners.get(condition).forEach(listener -> {
+                    listener.execute();
+                });
+                if (!condition.persistent())
+                    conditionsToRemove.add(condition);
+            }
+        });
+        conditionsToRemove.forEach(condition -> {
+            gameConditionListeners.remove(condition);
         });
     }
 

@@ -34,9 +34,9 @@ public class User {
         return lastPointsGot;
     }
 
-    public void changePointsBy(int nrOfPoints) {
-        points += nrOfPoints;
-        lastPointsGot = nrOfPoints;
+    public void changePointsBy(int noOfPoints) {
+        points += noOfPoints;
+        lastPointsGot = noOfPoints;
     }
 
     public void addBadge(String badgeName) {

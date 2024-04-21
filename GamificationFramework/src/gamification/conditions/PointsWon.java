@@ -1,6 +1,7 @@
 package gamification.conditions;
 
 import gamification.api.GameCondition;
+import gamification.user.UserRegistry;
 
 public class PointsWon implements GameCondition {
     private int minimumNoOfPoints;
@@ -11,6 +12,6 @@ public class PointsWon implements GameCondition {
 
     @Override
     public boolean evaluate() {
-        return false;
+        return UserRegistry.getCurrentUser().getLastPointsGot() >= minimumNoOfPoints;
     }
 }

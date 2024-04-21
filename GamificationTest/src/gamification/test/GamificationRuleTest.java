@@ -108,7 +108,7 @@ public class GamificationRuleTest {
         }
 
 
-        // Verify the points
+        // Verify the badges
         assertTrue(user.getBadges().contains("Annoying"));
         assertEquals("Annoying", UserRegistry.getCurrentUser().getLastBadgeGot());
     }

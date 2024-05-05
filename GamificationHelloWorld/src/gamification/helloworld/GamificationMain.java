@@ -23,7 +23,8 @@ public class GamificationMain {
 
         // Execute the PrintTextTask
         try {
-            GamificationFacade.getInstance().execute(new PrintTextTask("Hello World!"));
+            PrintTextTask task = new PrintTextTask("Hello World!");
+            GamificationFacade.getInstance().execute(task);
         } catch (FailedExecutionException ex) {
             System.out.println("Something went wrong.");
         }
